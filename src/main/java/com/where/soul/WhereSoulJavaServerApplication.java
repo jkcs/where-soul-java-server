@@ -1,4 +1,4 @@
-package com.where.soul.com;
+package com.where.soul;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

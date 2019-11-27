@@ -1,4 +1,4 @@
-package com.where.soul.com.server;
+package com.where.soul.server;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
