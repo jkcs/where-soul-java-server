@@ -1,8 +1,8 @@
 package com.where.soul.bill.entity;
 
-import com.where.soul.common.BaseEntity;
+import com.where.soul.common.base.BaseEntity;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;

@@ -1,7 +1,6 @@
 package com.where.soul.users.entity;
 
-import com.where.soul.common.BaseEntity;
-import java.time.LocalDateTime;
+import com.where.soul.common.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;

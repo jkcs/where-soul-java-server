@@ -1,6 +1,6 @@
 package com.where.soul.bill.entity;
 
-import com.where.soul.common.BaseEntity;
+import com.where.soul.common.base.BaseEntity;
 import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;

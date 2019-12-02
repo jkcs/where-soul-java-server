@@ -4,7 +4,7 @@ package com.where.soul.bill.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
-import com.where.soul.common.BaseController;
+import com.where.soul.common.base.BaseController;
 
 /**
  * <p>

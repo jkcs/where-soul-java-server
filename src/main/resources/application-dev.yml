@@ -1,16 +1,16 @@
 server:
-  port: 8080
+  port: 9555
 
 spring:
   datasource:
     username: root
     password: 1234
-    url: jdbc:mysql://localhost:3306/springboot?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
-    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/where_soul?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
 mybatis-plus:
   mapper-locations: classpath:mapper/*Mapper.xml
-  type-aliases-package: com.where.soul.entity
+  type-aliases-package: com.where.soul.*.entity
 
 # showSql
 logging:

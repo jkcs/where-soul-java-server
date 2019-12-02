@@ -1,4 +1,4 @@
-package com.where.soul.common;
+package com.where.soul.common.base;
 
 import lombok.Data;
 
