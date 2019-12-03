@@ -1,18 +1,22 @@
 package com.where.soul.users.controller;
 
 
+import com.baomidou.mybatisplus.extension.api.R;
 import com.where.soul.common.Result;
-import com.where.soul.common.exception.BizException;
-import jdk.nashorn.internal.runtime.logging.Logger;
+import com.where.soul.common.util.Regexp;
+import com.where.soul.users.dto.UserDTO;
+import com.where.soul.users.entity.Avatar;
+import com.where.soul.users.entity.Security;
+import com.where.soul.users.entity.Users;
+import com.where.soul.users.service.IAvatarService;
+import com.where.soul.users.service.IUsersService;
+import com.where.soul.users.vo.UserUpdateVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import com.where.soul.common.base.BaseController;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import javax.validation.constraints.Pattern;
 
 /**
  * <p>
@@ -26,36 +30,78 @@ import java.util.concurrent.ConcurrentHashMap;
 @RequestMapping("/users/users")
 @Slf4j
 public class UsersController extends BaseController {
+    private final IUsersService usersService;
+    private final IAvatarService avatarService;
+
+    public UsersController(IUsersService usersService, IAvatarService avatarService) {
+        this.usersService = usersService;
+        this.avatarService = avatarService;
+    }
+
     @GetMapping("/{id}")
     public Result getUserInfo(@PathVariable("id") String id) {
-        log.info("-----------" + id);
-        return Result.success(id);
+        Users users = usersService.getById(id);
+        UserDTO userDTO = new UserDTO();
+        userDTO.setGender(users.getGender());
+        userDTO.setUsername(users.getUsername());
+        userDTO.setAvatar(null);
+        Integer avatarId = users.getAvatarId();
+        if (avatarId != null) {
+            Avatar avatar = avatarService.getById(avatarId);
+            userDTO.setAvatar(avatar.getAvatar());
+        }
+        return Result.success(userDTO);
     }
 
-    @GetMapping("test")
-    public Result test() {
-        int i = Integer.parseInt("dsakf");
-        return Result.success(null);
+    @PostMapping("/login")
+    public Result restLogin(String loginName, String password) {
+        Integer num = usersService.getUserCountByLoginNameAndPassword(loginName, password);
+        if (num == 1) {
+            // TODO 实现登录
+            return Result.success();
+        }
+        return Result.error("用户名或密码错误");
     }
 
-    @GetMapping("null")
-    public Result testNull() {
-        String nStr = null;
-        nStr.equals("jdskaf");
-        return Result.success(null);
+    @PostMapping("/check/name")
+    public Result restAuthLoginName(String loginName) {
+        Integer num = usersService.getUserCountByLoginName(loginName);
+        if (num > 0) {
+            return Result.customError("该名称已被占用！");
+        }
+        return Result.success();
     }
 
-    @GetMapping("exception")
-    public Result testException() {
-        throw  new BizException(-1, "测试异常捕获！");
+    @PostMapping("/register")
+    public Result restRegister(String loginName, String password) {
+        Integer num = usersService.getUserCountByLoginName(loginName);
+        if (num > 0) {
+            return Result.customError("该名称已被占用！");
+        }
+        Users user = usersService.addUser(loginName, password);
+        if (user == null) {
+            return Result.error();
+        }
+        return Result.success(user);
     }
 
-    @GetMapping("success")
-    public Result testSuccess() {
-        Map<String, Object> map = new HashMap<>(3);
-        map.put("test", "test");
-        map.put("array", new ArrayList<>());
-        map.put("obj", new HashMap<>(0));
-        return Result.success(map);
+    @PostMapping("/update")
+    public Result restUpdate(UserUpdateVO userUpdateVO) {
+        Users user = new Users();
+        user.setId(userUpdateVO.getId());
+        user.setUsername(userUpdateVO.getUsername());
+        user.setGender(userUpdateVO.getGender() == 1);
+
+        Security security = new Security();
+        String phone = userUpdateVO.getPhone();
+        String email = userUpdateVO.getEmail();
+        if (phone != null && !"".equals(phone)) {
+            security.setPhone(phone);
+        }
+        if (email != null && !"".equals(email)) {
+            security.setPhone(email);
+        }
+        return null;
     }
+
 }

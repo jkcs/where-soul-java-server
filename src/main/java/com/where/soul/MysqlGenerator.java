@@ -122,7 +122,7 @@ public class MysqlGenerator {
         // 公共父类
         strategy.setSuperControllerClass("com.where.soul.common.base.BaseController");
         // 写于父类中的公共字段
-        strategy.setSuperEntityColumns("id");
+        strategy.setSuperEntityColumns("id", "createTime", "updateTime");
         strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(pc.getModuleName() + "_");

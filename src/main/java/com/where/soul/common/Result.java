@@ -35,6 +35,10 @@ public class Result {
         this.data = data;
     }
 
+    public static Result success() {
+        return Result.success(null);
+    }
+
     public static Result success(Object data) {
         Result result = new Result();
         result.setData(data);
@@ -44,6 +48,11 @@ public class Result {
         return result;
     }
 
+    public static Result error() {
+        return Result.error(ResultEnum.ERROR.getResultMessage());
+    }
+
+
     public static Result error(ResultEnum resultEnum) {
         Result result = new Result();
         result.setData(null);
@@ -52,17 +61,17 @@ public class Result {
         return result;
     }
 
-    public static Result error(Object data) {
-        Result result = new Result();
-        result.setData(data);
-        result.setCode(ResultEnum.ERROR.getResultCode());
-        result.setMessage(ResultEnum.ERROR.getResultMessage());
-        return result;
-    }
-
     public static Result error(String message) {
         Result result = new Result();
         result.setCode(ResultEnum.ERROR.getResultCode());
+        result.setMessage(message);
+        result.setData(null);
+        return result;
+    }
+
+    public static Result customError(String message) {
+        Result result = new Result();
+        result.setCode(ResultEnum.CUSTOM_ERROR.getResultCode());
         result.setMessage(message);
         result.setData(null);
         return result;

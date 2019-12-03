@@ -1,5 +1,6 @@
 package com.where.soul.users.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.where.soul.common.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -28,6 +29,7 @@ public class Users extends BaseEntity {
     /**
      * 密码
      */
+    @JsonIgnore
     private String password;
 
     /**
