@@ -1,12 +1,10 @@
 package com.where.soul.users.controller;
 
 
-import com.baomidou.mybatisplus.extension.api.R;
 import com.where.soul.common.Constant;
 import com.where.soul.common.Result;
 import com.where.soul.common.ResultEnum;
-import com.where.soul.common.exception.BizException;
-import com.where.soul.common.util.Regexp;
+import com.where.soul.common.base.BaseController;
 import com.where.soul.users.dto.UserDTO;
 import com.where.soul.users.entity.Avatar;
 import com.where.soul.users.entity.Security;
@@ -17,11 +15,6 @@ import com.where.soul.users.vo.UserUpdateVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-
-import com.where.soul.common.base.BaseController;
-
-import javax.swing.*;
-import javax.validation.constraints.Pattern;
 
 /**
  * <p>

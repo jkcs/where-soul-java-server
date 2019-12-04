@@ -4,14 +4,15 @@ import com.where.soul.common.Result;
 import com.where.soul.common.ResultEnum;
 import com.where.soul.common.exception.BizException;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 
 /**
  * @author lw
@@ -60,6 +61,23 @@ public class GlobalExceptionHandler {
     public Result exceptionHandler(HttpServletRequest request, HttpRequestMethodNotSupportedException exception) {
         log.error("请求方法不支持异常！-> ", exception);
         return Result.error(ResultEnum.REQUEST_METHOD_SUPPORT_ERROR);
+    }
+
+    /**
+     * 处理参数校验异常
+     *
+     * @param exception exception
+     * @return Result 对象
+     */
+    @ExceptionHandler(value = MethodArgumentNotValidException.class)
+    @ResponseBody
+    public Result exceptionHandler(MethodArgumentNotValidException exception) {
+        BindingResult bindingResult = exception.getBindingResult();
+        if (bindingResult.hasErrors()) {
+            String message = Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage();
+            return Result.customError(message);
+        }
+        return Result.error(ResultEnum.ARG_EMPTY);
     }
 
     /**
