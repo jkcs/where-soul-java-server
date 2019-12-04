@@ -1,7 +1,10 @@
 package com.where.soul.users.service.impl;
 
+import cn.hutool.Hutool;
+import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.where.soul.common.exception.BizException;
+import com.where.soul.common.util.GeneratorUtil;
 import com.where.soul.users.entity.Avatar;
 import com.where.soul.users.entity.Security;
 import com.where.soul.users.entity.Users;
@@ -42,7 +45,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
     public Integer getUserCountByLoginNameAndPassword(String loginName, String password) {
         QueryWrapper<Users> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("login_name", loginName);
-        queryWrapper.eq("password", password);
+        queryWrapper.eq("password", GeneratorUtil.generatorMd5(loginName, password));
         return usersMapper.selectCount(queryWrapper);
     }
 
@@ -57,9 +60,9 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
     public Users addUser(String loginName, String password) {
         Users users = new Users();
         users.setLoginName(loginName);
-        users.setPassword(password);
+        users.setPassword(GeneratorUtil.generatorMd5(loginName, password));
+        users.setUsername(GeneratorUtil.generatorUsername(loginName));
         users.setCreateTime(LocalDateTime.now());
-        users.setUpdateTime(LocalDateTime.now());
         int insert = usersMapper.insert(users);
         if (insert < 1) {
             return null;

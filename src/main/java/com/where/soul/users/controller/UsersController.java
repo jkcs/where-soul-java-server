@@ -2,7 +2,10 @@ package com.where.soul.users.controller;
 
 
 import com.baomidou.mybatisplus.extension.api.R;
+import com.where.soul.common.Constant;
 import com.where.soul.common.Result;
+import com.where.soul.common.ResultEnum;
+import com.where.soul.common.exception.BizException;
 import com.where.soul.common.util.Regexp;
 import com.where.soul.users.dto.UserDTO;
 import com.where.soul.users.entity.Avatar;
@@ -12,10 +15,12 @@ import com.where.soul.users.service.IAvatarService;
 import com.where.soul.users.service.IUsersService;
 import com.where.soul.users.vo.UserUpdateVO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import com.where.soul.common.base.BaseController;
 
+import javax.swing.*;
 import javax.validation.constraints.Pattern;
 
 /**
@@ -74,6 +79,9 @@ public class UsersController extends BaseController {
 
     @PostMapping("/register")
     public Result restRegister(String loginName, String password) {
+        if (StringUtils.isEmpty(loginName) || StringUtils.isEmpty(password) || loginName.length() > Constant.MAX_LOGIN_NAME || password.length() > Constant.MAX_PASSWORD) {
+            return Result.error(ResultEnum.ARG_EMPTY);
+        }
         Integer num = usersService.getUserCountByLoginName(loginName);
         if (num > 0) {
             return Result.customError("该名称已被占用！");
