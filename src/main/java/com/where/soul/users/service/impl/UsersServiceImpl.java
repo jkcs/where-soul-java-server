@@ -1,10 +1,13 @@
 package com.where.soul.users.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.where.soul.common.exception.BizException;
 import com.where.soul.users.entity.Avatar;
 import com.where.soul.users.entity.Security;
 import com.where.soul.users.entity.Users;
 import com.where.soul.users.mapper.UsersMapper;
+import com.where.soul.users.service.IAvatarService;
+import com.where.soul.users.service.ISecurityService;
 import com.where.soul.users.service.IUsersService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +29,13 @@ import java.time.LocalDateTime;
 public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements IUsersService {
 
     private final UsersMapper usersMapper;
+    private final IAvatarService avatarService;
+    private final ISecurityService securityService;
 
-    public UsersServiceImpl(UsersMapper usersMapper) {
+    public UsersServiceImpl(UsersMapper usersMapper, IAvatarService avatarService, ISecurityService securityService) {
         this.usersMapper = usersMapper;
+        this.avatarService = avatarService;
+        this.securityService = securityService;
     }
 
     @Override
@@ -68,21 +75,32 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
     }
 
     @Override
-    @Transactional(propagation= Propagation.REQUIRED, rollbackFor = Exception.class)
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public Users updateUserById(Users users, Security security, Avatar avatar) {
         Integer avatarId = users.getAvatarId();
         Integer securityId = users.getUsersSecurityId();
         if (avatarId == null) {
             // 插入 获取 id
-            users.setAvatarId(avatar.getId());
+            Integer integer = avatarService.addAvatar(avatar);
+            if (integer != 0) {
+                avatarId = integer;
+            } else {
+                throw new BizException("操作异常 avatar");
+            }
         }
         if (securityId == null) {
-            users.setUsersSecurityId(security.getId());
+            Integer integer = securityService.addSecurity(security);
+            if (integer != 0) {
+                securityId = integer;
+            } else {
+                throw new BizException("操作异常 security");
+            }
         }
-//        if ()
 
-
-        return null;
+        users.setAvatarId(avatarId);
+        users.setUsersSecurityId(securityId);
+        usersMapper.updateById(users);
+        return usersMapper.selectById(users.getId());
     }
 
 

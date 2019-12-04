@@ -12,5 +12,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2019-11-28
  */
 public interface IAvatarService extends IService<Avatar> {
-
+    /**
+     * 增加头像
+     * @param avatar 实体
+     * @return 0 失败 其他返回头像id
+     */
+    Integer addAvatar(Avatar avatar);
 }

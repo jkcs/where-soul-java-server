@@ -4,7 +4,10 @@ import com.where.soul.users.entity.Security;
 import com.where.soul.users.mapper.SecurityMapper;
 import com.where.soul.users.service.ISecurityService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -17,4 +20,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class SecurityServiceImpl extends ServiceImpl<SecurityMapper, Security> implements ISecurityService {
 
+    private final SecurityMapper securityMapper;
+
+    public SecurityServiceImpl(SecurityMapper securityMapper) {
+        this.securityMapper = securityMapper;
+    }
+
+    @Override
+    public Integer addSecurity(Security security) {
+        security.setCreateTime(LocalDateTime.now());
+        int insert = securityMapper.insert(security);
+        if (insert < 1) {
+            return 0;
+        }
+        return security.getId();
+    }
 }

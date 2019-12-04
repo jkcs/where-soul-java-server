@@ -4,7 +4,10 @@ import com.where.soul.users.entity.Avatar;
 import com.where.soul.users.mapper.AvatarMapper;
 import com.where.soul.users.service.IAvatarService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -17,4 +20,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class AvatarServiceImpl extends ServiceImpl<AvatarMapper, Avatar> implements IAvatarService {
 
+    private final AvatarMapper avatarMapper;
+
+    public AvatarServiceImpl(AvatarMapper avatarMapper) {
+        this.avatarMapper = avatarMapper;
+    }
+
+    @Override
+    public Integer addAvatar(Avatar avatar) {
+        avatar.setCreateTime(LocalDateTime.now());
+        int insert = avatarMapper.insert(avatar);
+        if (insert < 1) {
+            return 0;
+        }
+        return avatar.getId();
+    }
 }
