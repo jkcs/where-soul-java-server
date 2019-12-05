@@ -18,7 +18,7 @@ public interface IUsersService extends IService<Users> {
      * 根据登录名和密码获取用户数量
      * @param loginName 登录名
      * @param password 密码
-     * @return 用户数量
+     * @return 0失败 用户 id
      */
     Integer getUserCountByLoginNameAndPassword(String loginName, String password);
 

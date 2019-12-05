@@ -46,7 +46,11 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
         QueryWrapper<Users> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("login_name", loginName);
         queryWrapper.eq("password", GeneratorUtil.generatorMd5(loginName, password));
-        return usersMapper.selectCount(queryWrapper);
+        Users users = usersMapper.selectOne(queryWrapper);
+        if (users == null) {
+            return 0;
+        }
+        return users.getId();
     }
 
     @Override

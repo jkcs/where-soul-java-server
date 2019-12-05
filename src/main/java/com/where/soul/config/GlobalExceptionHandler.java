@@ -4,6 +4,7 @@ import com.where.soul.common.Result;
 import com.where.soul.common.ResultEnum;
 import com.where.soul.common.exception.BizException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -30,7 +31,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = BizException.class)
     @ResponseBody
     public Result bizExceptionHandler(HttpServletRequest request, BizException exception) {
-        log.error("业务异常！-> {}", exception.getMessage());
         return Result.error(exception.getCode(), exception.getMessage());
     }
 
@@ -59,7 +59,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
     @ResponseBody
     public Result exceptionHandler(HttpServletRequest request, HttpRequestMethodNotSupportedException exception) {
-        log.error("请求方法不支持异常！-> ", exception);
         return Result.error(ResultEnum.REQUEST_METHOD_SUPPORT_ERROR);
     }
 
@@ -72,6 +71,23 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     @ResponseBody
     public Result exceptionHandler(MethodArgumentNotValidException exception) {
+        BindingResult bindingResult = exception.getBindingResult();
+        if (bindingResult.hasErrors()) {
+            String message = Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage();
+            return Result.customError(message);
+        }
+        return Result.error(ResultEnum.ARG_EMPTY);
+    }
+
+    /**
+     * 处理参数校验异常
+     *
+     * @param exception exception
+     * @return Result 对象
+     */
+    @ExceptionHandler(value = BindException.class)
+    @ResponseBody
+    public Result exceptionHandler(BindException exception) {
         BindingResult bindingResult = exception.getBindingResult();
         if (bindingResult.hasErrors()) {
             String message = Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage();

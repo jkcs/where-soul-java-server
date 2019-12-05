@@ -9,15 +9,17 @@ import com.where.soul.common.base.BaseErrorInterface;
 public enum ResultEnum implements BaseErrorInterface {
     // 错误定义
     SUCCESS(0, "操作成功！"),
+
     ERROR(-1, "操作失败！"),
     CUSTOM_ERROR(-2, ""),
+    ARG_EMPTY(-2, "参数有误！"),
+    NO_AUTH(-4, "登录失效！"),
     BODY_NOT_MATCH(400, "请求的数据格式不符！"),
     SIGNATURE_NOT_MATCH(401, "请求的数字签名不匹配！"),
     NOT_FOUND(404, "未找到该资源！"),
     INTERNAL_SERVER_ERROR(500, "服务器内部错误！"),
     SERVER_BUSY(503, "服务器正忙，请稍后再试！"),
-    REQUEST_METHOD_SUPPORT_ERROR(40001,"当前请求方法不支持！"),
-    ARG_EMPTY(-2, "参数有误！");
+    REQUEST_METHOD_SUPPORT_ERROR(40001,"当前请求方法不支持！");
 
     /**
      * 错误码

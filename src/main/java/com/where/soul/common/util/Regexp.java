@@ -1,6 +1,8 @@
 package com.where.soul.common.util;
 
 
+import com.where.soul.common.Constant;
+
 /**
  * @author lw
  */
@@ -20,4 +22,9 @@ public class Regexp {
      * 邮箱正则
      */
     public static final String EMAIL = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";
+
+    /**
+     * 密码正则
+     */
+    public static final String PASSWORD = "^(?!([^(0-9a-zA-Z)])+$).{" + Constant.MIN_PASSWORD + "," + Constant.MAX_PASSWORD + "}$";
 }

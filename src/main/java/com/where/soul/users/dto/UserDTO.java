@@ -21,7 +21,7 @@ public class UserDTO {
     /**
      * 性别 0 女 1 男
      */
-    private Boolean gender;
+    private Integer gender;
 
     public String getUsername() {
         return username;
@@ -39,11 +39,11 @@ public class UserDTO {
         this.avatar = avatar;
     }
 
-    public Boolean getGender() {
+    public Integer getGender() {
         return gender;
     }
 
-    public void setGender(Boolean gender) {
+    public void setGender(Integer gender) {
         this.gender = gender;
     }
 }

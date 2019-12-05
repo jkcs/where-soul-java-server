@@ -3,7 +3,7 @@ package com.where.soul.users.vo;
 import com.where.soul.common.util.Regexp;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 /**
@@ -12,7 +12,7 @@ import javax.validation.constraints.Pattern;
 @Data
 public class UserUpdateVO {
 
-    @NotNull
+    @NotBlank(message = "用户id不能为空")
     private Integer id;
 
     private String username;
@@ -25,6 +25,7 @@ public class UserUpdateVO {
     @Pattern(regexp = Regexp.PHONE, message = "手机号码不合法")
     private String phone;
 
+    @Pattern(regexp = Regexp.EMAIL, message = "手机号码不合法")
     private String email;
 
 }
