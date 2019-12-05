@@ -2,6 +2,7 @@ package com.where.soul.users.service;
 
 import com.where.soul.users.entity.Security;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.where.soul.users.entity.Users;
 
 /**
  * <p>
@@ -18,4 +19,18 @@ public interface ISecurityService extends IService<Security> {
      * @return 0 失败 其余 返回id
      */
     Integer addSecurity(Security security);
+
+    /**
+     * 根据电话找到用户
+     * @param phone 手机号码
+     * @return 用户对象
+     */
+    Users findUserByPhone(String phone);
+
+    /**
+     * 根据邮箱找到用户
+     * @param email 邮箱
+     * @return 用户对象
+     */
+    Users findUserByEmail(String email);
 }

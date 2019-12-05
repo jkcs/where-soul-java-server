@@ -1,6 +1,7 @@
 package com.where.soul.users.service.impl;
 
 import com.where.soul.users.entity.Security;
+import com.where.soul.users.entity.Users;
 import com.where.soul.users.mapper.SecurityMapper;
 import com.where.soul.users.service.ISecurityService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -34,5 +35,15 @@ public class SecurityServiceImpl extends ServiceImpl<SecurityMapper, Security> i
             return 0;
         }
         return security.getId();
+    }
+
+    @Override
+    public Users findUserByPhone(String phone) {
+        return null;
+    }
+
+    @Override
+    public Users findUserByEmail(String email) {
+        return null;
     }
 }
