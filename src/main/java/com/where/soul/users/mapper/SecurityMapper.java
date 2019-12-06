@@ -2,6 +2,7 @@ package com.where.soul.users.mapper;
 
 import com.where.soul.users.entity.Security;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.where.soul.users.entity.Users;
 
 /**
  * <p>
@@ -13,4 +14,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface SecurityMapper extends BaseMapper<Security> {
 
+    /**
+     * 根据电话号码找到用户
+     *
+     * @param phone 手机号码
+     * @return 用户对象
+     */
+    Users selectUserByPhone(String phone);
 }

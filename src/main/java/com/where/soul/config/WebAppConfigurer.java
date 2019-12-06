@@ -31,7 +31,7 @@ public class WebAppConfigurer implements WebMvcConfigurer {
                 InterceptorRegistration interceptorRegistration = registry.addInterceptor(new AuthInterceptor(loginManager));
                 interceptorRegistration.addPathPatterns("/**");
                 interceptorRegistration
-                        .excludePathPatterns("/users/login", "/users/register","/users/check/name");
+                        .excludePathPatterns("/users/login", "/users/register","/users/check/name", "/**/security/**");
             }
         };
     }

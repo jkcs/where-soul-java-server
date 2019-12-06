@@ -42,31 +42,32 @@ public class AuthInterceptor implements HandlerInterceptor {
         String token = request.getHeader(Constant.W_TOKEN);
         if (StringUtils.isEmpty(token)) {
             Cookie[] cookies = request.getCookies();
-            for (Cookie c : cookies) {
-                if (Constant.W_TOKEN.equals(c.getName())) {
-                    token = c.getValue();
+            if (cookies != null) {
+                for (Cookie c : cookies) {
+                    if (Constant.W_TOKEN.equals(c.getName())) {
+                        token = c.getValue();
+                    }
                 }
             }
         }
-        if (StringUtils.isEmpty(token)) {
-            return false;
-        }
-        // 设置用户 id 至 request
-        request.setAttribute(Constant.ID, loginManager.get(token));
-        boolean isLogin = loginManager.isLogin(token);
-
-        if (!isLogin) {
-            response.setCharacterEncoding(StandardCharsets.UTF_8.name());
-            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-            try (PrintWriter writer = response.getWriter()) {
-                writer.print(JSONObject.toJSONString(Result.error(ResultEnum.NO_AUTH)));
-                writer.flush();
-            } catch (IOException e) {
-                log.error("response error", e);
+        if (!StringUtils.isEmpty(token)) {
+            // 设置用户 id 至 request
+            request.setAttribute(Constant.ID, loginManager.get(token));
+            boolean isLogin = loginManager.isLogin(token);
+            if (isLogin) {
+                return true;
             }
-            return false;
         }
-        return true;
+
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        try (PrintWriter writer = response.getWriter()) {
+            writer.print(JSONObject.toJSONString(Result.error(ResultEnum.NO_AUTH)));
+            writer.flush();
+        } catch (IOException e) {
+            log.error("response error", e);
+        }
+        return false;
     }
 
     @Override

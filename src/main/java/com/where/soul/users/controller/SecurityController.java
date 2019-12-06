@@ -8,8 +8,12 @@ import com.where.soul.common.util.Regexp;
 import com.where.soul.users.dto.UserDTO;
 import com.where.soul.users.entity.Avatar;
 import com.where.soul.users.entity.Users;
+import com.where.soul.users.service.ISecurityService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -29,9 +33,16 @@ import java.util.regex.Pattern;
  */
 @RestController
 @RequestMapping("/users/security")
+@Slf4j
 public class SecurityController extends BaseController {
 
-    @GetMapping
+    private final ISecurityService securityService;
+
+    public SecurityController(ISecurityService securityService) {
+        this.securityService = securityService;
+    }
+
+    @PostMapping("/find")
     public Result restUserInfo(String phoneOrEmail) {
         if (phoneOrEmail == null || "".equals(phoneOrEmail)) {
             return Result.error();
@@ -44,11 +55,17 @@ public class SecurityController extends BaseController {
 
         // 是手机号码
         if (phoneMatch.find()) {
-
+            Users user = securityService.findUserByPhone(phoneOrEmail);
+            UserDTO userDTO = new UserDTO();
+            BeanUtils.copyProperties(user, userDTO);
+            return Result.success(userDTO);
         }
         // 是邮箱
         if (emailMatch.find()) {
-
+            Users user = securityService.findUserByPhone(phoneOrEmail);
+            UserDTO userDTO = new UserDTO();
+            BeanUtils.copyProperties(user, userDTO);
+            return Result.success(userDTO);
         }
 
         return Result.customError("数据的邮箱或手机号有误！");

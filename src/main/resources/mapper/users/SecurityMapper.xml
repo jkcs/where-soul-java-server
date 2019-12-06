@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.where.soul.users.mapper.SecurityMapper">
-    <sql id="selectUserByPhone">
+    <select id="selectUserByPhone" parameterType="String" resultMap="com.where.soul.users.entity.Users">
         SELECT
-            a.id, a.username, a.gender, a.avatar_id, a.users_security_id
+            id, username, gender, avatar_id, users_security_id
         FROM
-            users a
+            users
         WHERE
             users_security_id = (
                 SELECT
@@ -15,5 +15,5 @@
                 WHERE
                     phone = '159077'
             )
-    </sql>
+    </select>
 </mapper>

@@ -55,9 +55,9 @@ public class Result {
 
     public static Result error(ResultEnum resultEnum) {
         Result result = new Result();
-        result.setData(null);
         result.setCode(resultEnum.getResultCode());
         result.setMessage(resultEnum.getResultMessage());
+        result.setData(null);
         return result;
     }
 

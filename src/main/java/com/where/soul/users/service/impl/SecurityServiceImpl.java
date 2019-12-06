@@ -5,7 +5,6 @@ import com.where.soul.users.entity.Users;
 import com.where.soul.users.mapper.SecurityMapper;
 import com.where.soul.users.service.ISecurityService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -39,7 +38,7 @@ public class SecurityServiceImpl extends ServiceImpl<SecurityMapper, Security> i
 
     @Override
     public Users findUserByPhone(String phone) {
-        return null;
+        return securityMapper.selectUserByPhone(phone);
     }
 
     @Override
