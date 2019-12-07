@@ -1,4 +1,4 @@
-package com.where.soul.users.controller;
+package com.where.soul.server.controller;
 
 import com.where.soul.common.util.GeneratorUtil;
 import lombok.extern.slf4j.Slf4j;

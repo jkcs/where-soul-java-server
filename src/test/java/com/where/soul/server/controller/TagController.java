@@ -1,5 +1,6 @@
-package com.where.soul.users.controller;
+package com.where.soul.server.controller;
 
+import com.where.soul.common.Constant;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,21 +22,21 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @Slf4j
-class SecurityController {
+class TagController {
+    private String token = "d90b58c61cea1c2b1bc9862381a27db0";
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    void getUserByPhoneOrEmail() throws Exception {
+    void addTag() throws Exception {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        map.add("phoneOrEmail", "15907898652");
         MvcResult mvcResult = mockMvc.perform(
-                post("/users/security/find")
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .params(map)
+                post("/bill/tag/add")
+                        .header(Constant.W_TOKEN, token)
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .params(map)
         ).andReturn();
-
-        log.warn(mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8));
+        System.out.println(mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8));
     }
 }
