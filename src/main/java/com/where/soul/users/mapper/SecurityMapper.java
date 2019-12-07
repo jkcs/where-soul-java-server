@@ -21,4 +21,12 @@ public interface SecurityMapper extends BaseMapper<Security> {
      * @return 用户对象
      */
     Users selectUserByPhone(String phone);
+
+    /**
+     * 根据邮箱号码找到用户
+     *
+     * @param email 邮箱
+     * @return 用户对象
+     */
+    Users selectUserByEmail(String email);
 }

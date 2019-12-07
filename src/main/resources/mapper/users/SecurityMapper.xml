@@ -17,6 +17,22 @@
             )
     </select>
 
+    <select id="selectUserByEmail" parameterType="String" resultMap="userRM">
+        SELECT
+            id, username, gender, avatar_id, users_security_id
+        FROM
+            users
+        WHERE
+            users_security_id = (
+                SELECT
+                    id
+                FROM
+                    users_security
+                WHERE
+                    email = #{0}
+            )
+    </select>
+
     <resultMap id="userRM" type="Users">
         <id property="id" column="id" />
         <result property="avatar_id" column="avatar_id" jdbcType="INTEGER"/>

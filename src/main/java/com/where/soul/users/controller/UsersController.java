@@ -16,12 +16,14 @@ import com.where.soul.users.service.IUsersService;
 import com.where.soul.users.vo.UserOptionVO;
 import com.where.soul.users.vo.UserUpdateVO;
 import lombok.extern.slf4j.Slf4j;
-import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -97,7 +99,7 @@ public class UsersController extends BaseController {
     @PostMapping("/check/name")
     public Result restAuthLoginName(String loginName) {
         if (StringUtils.isEmpty(loginName)) {
-            return Result.customError("该名称已被占用！");
+            return Result.customError("该名称不能试用！");
         }
         Integer num = usersService.getUserCountByLoginName(loginName);
         if (num > 0) {
