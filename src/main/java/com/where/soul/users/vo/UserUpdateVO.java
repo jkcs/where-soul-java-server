@@ -12,9 +12,6 @@ import javax.validation.constraints.Pattern;
 @Data
 public class UserUpdateVO {
 
-    @NotBlank(message = "用户id不能为空")
-    private Integer id;
-
     private String username;
 
     private String avatar;

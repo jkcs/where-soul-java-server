@@ -11,11 +11,15 @@ import com.where.soul.users.entity.Avatar;
 import com.where.soul.users.entity.Security;
 import com.where.soul.users.entity.Users;
 import com.where.soul.users.service.IAvatarService;
+import com.where.soul.users.service.ISecurityService;
 import com.where.soul.users.service.IUsersService;
 import com.where.soul.users.vo.UserOptionVO;
 import com.where.soul.users.vo.UserUpdateVO;
 import lombok.extern.slf4j.Slf4j;
+import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.beans.BeanUtils;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +27,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -38,12 +43,14 @@ import javax.validation.Valid;
 public class UsersController extends BaseController {
     private final IUsersService usersService;
     private final IAvatarService avatarService;
+    private final ISecurityService securityService;
     private final LoginManager loginManager;
 
-    public UsersController(IUsersService usersService, IAvatarService avatarService, LoginManager loginManager) {
+    public UsersController(IUsersService usersService, IAvatarService avatarService, LoginManager loginManager, ISecurityService securityService) {
         this.usersService = usersService;
         this.avatarService = avatarService;
         this.loginManager = loginManager;
+        this.securityService = securityService;
     }
 
     @GetMapping
@@ -64,8 +71,6 @@ public class UsersController extends BaseController {
 
     @PostMapping("/login")
     public Result restLogin(@Valid UserOptionVO userOptionVO, HttpServletResponse response, HttpServletRequest request) {
-        String id1 = (String) request.getAttribute(Constant.ID);
-        System.out.println(id1);
         Integer id = usersService.getUserCountByLoginNameAndPassword(userOptionVO.getLoginName(), userOptionVO.getPassword());
         if (id == 0) {
             return Result.error("用户名或密码错误");
@@ -75,6 +80,18 @@ public class UsersController extends BaseController {
         Cookie cookie = new Cookie(Constant.W_TOKEN, key);
         response.addCookie(cookie);
         return Result.success(key);
+    }
+
+    @GetMapping("/login/out")
+    public Result restLoginOut(HttpServletResponse response, HttpServletRequest request) {
+        String token = getToken(request);
+        if (token != null) {
+            loginManager.remove(token);
+        }
+        Cookie cookie = new Cookie(Constant.W_TOKEN, null);
+        cookie.setMaxAge(-1);
+        response.addCookie(cookie);
+        return Result.success();
     }
 
     @PostMapping("/check/name")
@@ -103,8 +120,11 @@ public class UsersController extends BaseController {
     }
 
     @PostMapping("/update")
-    public Result restUpdate(UserUpdateVO userUpdateVO) {
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public Result restUpdate(UserUpdateVO userUpdateVO, HttpServletRequest request) {
+        String userId = (String)request.getAttribute(Constant.ID);
         Users user = new Users();
+        user.setId(Integer.valueOf(userId));
         BeanUtils.copyProperties(userUpdateVO, user);
         if (userUpdateVO.getGender() !=null) {
             user.setGender(userUpdateVO.getGender() == 1);
@@ -117,8 +137,24 @@ public class UsersController extends BaseController {
             security.setPhone(phone);
         }
         if (email != null) {
-            security.setPhone(email);
+            security.setEmail(email);
         }
+
+        Users users = usersService.getById(userId);
+        Integer usersSecurityId = users.getUsersSecurityId();
+        if (usersSecurityId == null) {
+            security.setCreateTime(LocalDateTime.now());
+            Integer id = securityService.addSecurity(security);
+            if (id != 0) {
+                user.setUsersSecurityId(id);
+            }
+        } else {
+            security.setId(usersSecurityId);
+            security.setUpdateTime(LocalDateTime.now());
+            securityService.updateById(security);
+        }
+
+        user.setUpdateTime(LocalDateTime.now());
         Integer integer = usersService.updateUserById(user);
         return Result.success(integer);
     }

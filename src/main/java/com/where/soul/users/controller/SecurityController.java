@@ -56,6 +56,9 @@ public class SecurityController extends BaseController {
         // 是手机号码
         if (phoneMatch.find()) {
             Users user = securityService.findUserByPhone(phoneOrEmail);
+            if (user == null) {
+                return Result.error("没有找到该用户！");
+            }
             UserDTO userDTO = new UserDTO();
             BeanUtils.copyProperties(user, userDTO);
             return Result.success(userDTO);

@@ -17,6 +17,11 @@ import java.util.concurrent.ConcurrentHashMap;
 public class LoginManager {
     private Map<String, String>  mangerMap = new ConcurrentHashMap<>();
 
+    public LoginManager() {
+        // 调试时的万能 id
+        this.mangerMap.put("d90b58c61cea1c2b1bc9862381a27db0", "1");
+    }
+
     public String put(String id) {
         String key = GeneratorUtil.generatorMd5(LocalDateTime.now().toString(), id);
         this.mangerMap.put(key, id);
@@ -27,6 +32,9 @@ public class LoginManager {
         return this.mangerMap.get(key);
     }
 
+    public void remove(String key) {
+        this.mangerMap.remove(key);
+    }
     /**
      * 判断是否登录
      * @param key 键

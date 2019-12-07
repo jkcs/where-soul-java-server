@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.where.soul.users.mapper.SecurityMapper">
-    <select id="selectUserByPhone" parameterType="String" resultMap="com.where.soul.users.entity.Users">
+    <select id="selectUserByPhone" parameterType="String" resultMap="userRM">
         SELECT
             id, username, gender, avatar_id, users_security_id
         FROM
@@ -13,7 +13,15 @@
                 FROM
                     users_security
                 WHERE
-                    phone = '159077'
+                    phone = #{0}
             )
     </select>
+
+    <resultMap id="userRM" type="Users">
+        <id property="id" column="id" />
+        <result property="avatar_id" column="avatar_id" jdbcType="INTEGER"/>
+        <result property="users_security_id" column="avatar_id" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="gender" column="gender" jdbcType="BIT"/>
+    </resultMap>
 </mapper>
