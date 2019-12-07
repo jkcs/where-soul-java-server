@@ -13,4 +13,23 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ITagService extends IService<Tag> {
 
+    /**
+     * 插入标签
+     *
+     * @param userId   用户id
+     * @param name     标签名称
+     * @param parentId 父标签id
+     * @return -1失败, 其余成功
+     */
+    Integer insetTag(Integer userId, String name, Integer parentId);
+
+    /**
+     * 检查标签是否重复
+     *
+     * @param userId   用户id
+     * @param name     标签名称
+     * @param parentId 父标签id
+     * @return -1失败, 其余成功
+     */
+    Boolean isTagRepeat(Integer userId, String name, Integer parentId);
 }

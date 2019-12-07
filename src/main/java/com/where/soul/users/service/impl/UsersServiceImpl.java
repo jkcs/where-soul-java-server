@@ -1,7 +1,5 @@
 package com.where.soul.users.service.impl;
 
-import cn.hutool.Hutool;
-import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.where.soul.common.exception.BizException;
 import com.where.soul.common.util.GeneratorUtil;
@@ -13,7 +11,6 @@ import com.where.soul.users.service.IAvatarService;
 import com.where.soul.users.service.ISecurityService;
 import com.where.soul.users.service.IUsersService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;

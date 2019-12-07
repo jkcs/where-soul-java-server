@@ -1,10 +1,10 @@
 package com.where.soul.bill.controller;
 
 
+import com.where.soul.common.base.BaseController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
-import com.where.soul.common.base.BaseController;
 
 /**
  * <p>
@@ -15,7 +15,7 @@ import com.where.soul.common.base.BaseController;
  * @since 2019-11-28
  */
 @RestController
-@RequestMapping("/bill/bill")
+@RequestMapping("/bill")
 public class BillController extends BaseController {
 
 }

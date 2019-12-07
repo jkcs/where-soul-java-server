@@ -2,7 +2,6 @@ package com.where.soul.config;
 
 import com.where.soul.common.LoginManager;
 import com.where.soul.common.interceptor.AuthInterceptor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;

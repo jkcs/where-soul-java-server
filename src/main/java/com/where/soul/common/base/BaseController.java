@@ -1,7 +1,6 @@
 package com.where.soul.common.base;
 
 import com.where.soul.common.Constant;
-import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 

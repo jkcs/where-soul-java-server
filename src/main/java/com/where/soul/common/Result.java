@@ -49,7 +49,7 @@ public class Result {
     }
 
     public static Result error() {
-        return Result.error(ResultEnum.ERROR.getResultMessage());
+        return error(ResultEnum.ERROR.getResultMessage());
     }
 
 

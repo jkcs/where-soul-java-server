@@ -4,7 +4,6 @@ import com.where.soul.users.entity.Avatar;
 import com.where.soul.users.mapper.AvatarMapper;
 import com.where.soul.users.service.IAvatarService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

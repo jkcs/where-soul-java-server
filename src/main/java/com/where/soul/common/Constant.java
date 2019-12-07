@@ -15,6 +15,11 @@ public class Constant {
      */
     public static final String ID = "id";
 
+    /**
+     * 下划线
+     */
+    public static final String UNDERLINE = "_";
+
 
     /**
      * 登录名最大长度

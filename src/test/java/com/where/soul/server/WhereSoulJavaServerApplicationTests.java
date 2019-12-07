@@ -8,6 +8,7 @@ class WhereSoulJavaServerApplicationTests {
 
     @Test
     void contextLoads() {
+        System.out.println("测试服的咖啡机都是开发可视对讲福克斯的九分裤");
     }
 
 }

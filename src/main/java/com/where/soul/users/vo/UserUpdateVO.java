@@ -3,7 +3,6 @@ package com.where.soul.users.vo;
 import com.where.soul.common.util.Regexp;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 /**

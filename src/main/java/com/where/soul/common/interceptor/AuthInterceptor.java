@@ -1,23 +1,17 @@
 package com.where.soul.common.interceptor;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sun.deploy.net.HttpResponse;
-import com.sun.xml.internal.bind.v2.runtime.output.Encoded;
 import com.where.soul.common.Constant;
 import com.where.soul.common.LoginManager;
 import com.where.soul.common.Result;
 import com.where.soul.common.ResultEnum;
-import com.where.soul.common.exception.BizException;
-import com.where.soul.common.util.GeneratorUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

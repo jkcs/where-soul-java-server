@@ -1,4 +1,4 @@
-package com.where.soul.com.where.soul.users.controller;
+package com.where.soul.users.controller;
 
 import com.where.soul.common.util.GeneratorUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +15,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -83,9 +84,11 @@ class UsersController {
     void genAES() {
 //        byte[] encoded = SecureUtil.generateKey(SymmetricAlgorithm.AES.getValue()).getEncoded();
 //        System.out.println(Arrays.toString(encoded));
-        String s = "1";
-        String s1 = GeneratorUtil.generatorAesCode(s);
-        System.out.println(s1);
+//        String s = "1";
+//        String s1 = GeneratorUtil.generatorAesCode(s);
+//        System.out.println(s1);
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println(now.toString());
     }
 
     @Test
