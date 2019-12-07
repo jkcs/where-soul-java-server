@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 public class BaseController {
 
     protected Integer getUserId(HttpServletRequest request) {
-        Object id = request.getAttribute(Constant.ID);
-        return (Integer) id;
+        String id = (String) request.getAttribute(Constant.ID);
+        return Integer.valueOf(id);
     }
 
     protected String getToken(HttpServletRequest request) {

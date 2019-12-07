@@ -3,6 +3,8 @@ package com.where.soul.bill.service;
 import com.where.soul.bill.entity.Tag;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 账单标签表 服务类
@@ -32,4 +34,12 @@ public interface ITagService extends IService<Tag> {
      * @return -1失败, 其余成功
      */
     Boolean isTagRepeat(Integer userId, String name, Integer parentId);
+
+    /**
+     * 搜索用户的所有标签
+     *
+     * @param userId   用户id
+     * @return List<Tag>
+     */
+    List<Tag> selectListByUserId(Integer userId);
 }

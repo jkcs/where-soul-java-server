@@ -1,10 +1,14 @@
 package com.where.soul.bill.controller;
 
 
+import com.where.soul.bill.dto.TagDTO;
+import com.where.soul.bill.entity.Tag;
 import com.where.soul.bill.service.ITagService;
 import com.where.soul.bill.vo.TagVO;
 import com.where.soul.common.Result;
 import com.where.soul.common.base.BaseController;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * <p>
@@ -41,11 +46,26 @@ public class TagController extends BaseController {
             return Result.customError("标签重复添加！");
         }
 
+        if (!StringUtils.isEmpty(tagVO.getParentId())) {
+            Tag pTag = tagService.getById(parentId);
+            if (pTag == null) {
+                return Result.customError("没有找到该父标签！");
+            }
+        }
+
         Integer integer = tagService.insetTag(id, name, parentId);
-        if (integer == -1){
+        if (integer == -1) {
             return Result.customError("添加失败！");
         }
 
         return Result.success();
+    }
+
+    @GetMapping
+    public Result restList(HttpServletRequest request) {
+        Integer id = getUserId(request);
+        List<Tag> tags = tagService.selectListByUserId(id);
+        TagDTO tagDTO = new TagDTO();
+        return Result.success(tagDTO.buildTagDTOList(tags));
     }
 }

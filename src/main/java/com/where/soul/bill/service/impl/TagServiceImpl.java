@@ -47,6 +47,11 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements ITagS
         if (tag.getParentId() == null) {
             return String.valueOf(parentId);
         }
+
+        if (tag.getParentId().equals(parentId)) {
+            return "";
+        }
+
         String pId = String.valueOf(tag.getParentId());
         return buildStructureChain(Integer.valueOf(pId)) + Constant.UNDERLINE + parentId;
     }
@@ -72,5 +77,12 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements ITagS
         }
         List<Tag> list = tagMapper.selectList(wrapper);
         return list != null && list.size() > 0;
+    }
+
+    @Override
+    public List<Tag> selectListByUserId(Integer userId) {
+        QueryWrapper<Tag> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_id", userId);
+        return tagMapper.selectList(wrapper);
     }
 }
