@@ -34,7 +34,7 @@ public class TagDTO {
                 Tag tag = tagList.get(i);
                 if (tag.getParentId() == null) {
                     tagList.remove(tag);
-                    tagDtoList.add(new TagDTO(tag.getId(), tag.getName(), findChildren(tag, tagList)));
+                    tagDtoList.add(findChildren(tag, tagList));
                 }
             }
         }
@@ -46,7 +46,7 @@ public class TagDTO {
         TagDTO child = new TagDTO(tag.getId(), tag.getName());
         if (tagList != null) {
             for (Tag item : tagList) {
-                if (tag.getParentId().equals(item.getId())){
+                if (tag.getId().equals(item.getParentId())){
                     child.setChildren(findChildren(item, tagList));
                 }
             }
