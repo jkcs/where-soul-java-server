@@ -42,4 +42,22 @@ public interface ITagService extends IService<Tag> {
      * @return List<Tag>
      */
     List<Tag> selectListByUserId(Integer userId);
+
+    /**
+     * 搜索该标签的子标签
+     *
+     * @param userId   用户id
+     * @param tagId   标签id
+     * @return List<Tag>
+     */
+    List<Tag> selectChildById(Integer userId, Integer tagId);
+
+    /**
+     * 搜索该标签的父标签
+     *
+     * @param userId   用户id
+     * @param tagId   标签id
+     * @return List<Tag>
+     */
+    List<Tag> selectParentById(Integer userId, Integer tagId);
 }

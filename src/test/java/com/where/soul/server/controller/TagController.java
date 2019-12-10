@@ -32,8 +32,8 @@ class TagController {
     @Test
     void addTag() throws Exception {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        map.add("name", "测试标签1");
-        map.add("parentId", "2");
+        map.add("name", "测试");
+        map.add("parentId", "");
         MvcResult mvcResult = mockMvc.perform(
                 post("/bill/tag/add")
                         .header(Constant.W_TOKEN, token)

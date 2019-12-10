@@ -1,5 +1,6 @@
 package com.where.soul.bill.dto;
 
+import com.alibaba.fastjson.JSONObject;
 import com.where.soul.bill.entity.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,7 +28,7 @@ public class TagDTO {
         this.name = name;
     }
 
-    public List<TagDTO> buildTagDTOList(List<Tag> tagList) {
+    public List<TagDTO> buildTagDtoList(List<Tag> tagList) {
         List<TagDTO> tagDtoList = new ArrayList<>();
         if (tagList != null) {
             for (int i = 0; i < tagList.size(); i++) {
@@ -50,8 +51,6 @@ public class TagDTO {
                     child.setChildren(findChildren(item, tagList));
                 }
             }
-        } else {
-            return child;
         }
 
         return child;

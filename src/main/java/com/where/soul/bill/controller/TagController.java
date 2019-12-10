@@ -8,11 +8,7 @@ import com.where.soul.bill.vo.TagVO;
 import com.where.soul.common.Result;
 import com.where.soul.common.base.BaseController;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -66,6 +62,15 @@ public class TagController extends BaseController {
         Integer id = getUserId(request);
         List<Tag> tags = tagService.selectListByUserId(id);
         TagDTO tagDTO = new TagDTO();
-        return Result.success(tagDTO.buildTagDTOList(tags));
+        return Result.success(tagDTO.buildTagDtoList(tags));
+    }
+
+    @GetMapping("/children/{id}")
+    public Result restChildrenById(@PathVariable("id") String id, HttpServletRequest request) {
+        Integer tagId = Integer.parseInt(id);
+
+
+
+        return Result.success(null);
     }
 }
