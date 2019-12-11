@@ -32,8 +32,8 @@ class TagController {
     @Test
     void addTag() throws Exception {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        map.add("name", "测试");
-        map.add("parentId", "");
+        map.add("name", "测试父4");
+        map.add("parentId", "4");
         MvcResult mvcResult = mockMvc.perform(
                 post("/bill/tag/add")
                         .header(Constant.W_TOKEN, token)
@@ -47,6 +47,16 @@ class TagController {
     void getTags() throws Exception {
         MvcResult mvcResult = mockMvc.perform(
                 get("/bill/tag")
+                        .header(Constant.W_TOKEN, token)
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+        ).andReturn();
+        System.out.println(mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8));
+    }
+
+    @Test
+    void getTagChildren() throws Exception {
+        MvcResult mvcResult = mockMvc.perform(
+                get("/bill/tag/children/1")
                         .header(Constant.W_TOKEN, token)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
         ).andReturn();

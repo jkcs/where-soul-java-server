@@ -1,6 +1,5 @@
 package com.where.soul.bill.dto;
 
-import com.alibaba.fastjson.JSONObject;
 import com.where.soul.bill.entity.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,11 +20,21 @@ public class TagDTO {
 
     private String name;
 
-    private TagDTO children;
+    private List<TagDTO> children;
 
     public TagDTO(Integer id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public TagDTO(Tag tag) {
+        this.id = tag.getId();
+        this.name = tag.getName();
+    }
+
+    public TagDTO build(List<Tag> tagList) {
+        this.setChildren(findChildren(tagList));
+        return this;
     }
 
     public List<TagDTO> buildTagDtoList(List<Tag> tagList) {
@@ -35,7 +44,7 @@ public class TagDTO {
                 Tag tag = tagList.get(i);
                 if (tag.getParentId() == null) {
                     tagList.remove(tag);
-                    tagDtoList.add(findChildren(tag, tagList));
+                    tagDtoList.add(new TagDTO(tag).build(tagList));
                 }
             }
         }
@@ -43,16 +52,15 @@ public class TagDTO {
         return tagDtoList;
     }
 
-    private TagDTO findChildren(Tag tag, List<Tag> tagList) {
-        TagDTO child = new TagDTO(tag.getId(), tag.getName());
+    public List<TagDTO> findChildren(List<Tag> tagList) {
+        List<TagDTO> list = new ArrayList<>();
         if (tagList != null) {
             for (Tag item : tagList) {
-                if (tag.getId().equals(item.getParentId())){
-                    child.setChildren(findChildren(item, tagList));
+                if (this.getId().equals(item.getParentId())) {
+                    list.add(new TagDTO(item).build(tagList));
                 }
             }
         }
-
-        return child;
+        return list;
     }
 }

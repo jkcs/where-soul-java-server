@@ -87,14 +87,10 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements ITagS
     }
 
     @Override
-    public List<Tag> selectChildById(Integer userId, Integer tagId) {
+    public Integer update(Integer userId, Tag tag) {
         QueryWrapper<Tag> wrapper = new QueryWrapper<>();
         wrapper.eq("user_id", userId);
-        return tagMapper.selectList(wrapper);
+        return tagMapper.update(tag, wrapper);
     }
 
-    @Override
-    public List<Tag> selectParentById(Integer userId, Integer tagId) {
-        return null;
-    }
 }

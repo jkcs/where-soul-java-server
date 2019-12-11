@@ -4,14 +4,17 @@ package com.where.soul.bill.controller;
 import com.where.soul.bill.dto.TagDTO;
 import com.where.soul.bill.entity.Tag;
 import com.where.soul.bill.service.ITagService;
+import com.where.soul.bill.vo.TagUpdateVO;
 import com.where.soul.bill.vo.TagVO;
 import com.where.soul.common.Result;
 import com.where.soul.common.base.BaseController;
+import org.springframework.beans.BeanUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -67,10 +70,31 @@ public class TagController extends BaseController {
 
     @GetMapping("/children/{id}")
     public Result restChildrenById(@PathVariable("id") String id, HttpServletRequest request) {
+        Integer userId = getUserId(request);
         Integer tagId = Integer.parseInt(id);
+        Tag byId = tagService.getById(tagId);
+        if (byId == null) {
+            return Result.customError("没有找到该标签！");
+        }
 
+        List<Tag> tags = tagService.selectListByUserId(userId);
+        TagDTO tagDTO = new TagDTO(byId).build(tags);
+        return Result.success(tagDTO);
+    }
 
-
-        return Result.success(null);
+    @PostMapping("/update")
+    public Result restChildrenById(@Valid TagUpdateVO tagVO, HttpServletRequest request) {
+        Integer userId = getUserId(request);
+        Integer id = tagVO.getId();
+        Tag byId = tagService.getById(id);
+        if (byId == null) {
+            return Result.error("没有找到该标签！");
+        }
+        BeanUtils.copyProperties(tagVO, byId);
+        Integer integer = tagService.update(userId, byId);
+        if (integer == -1) {
+            return Result.customError("操作异常！");
+        }
+        return Result.success();
     }
 }
