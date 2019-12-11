@@ -27,4 +27,9 @@ public class Regexp {
      * 密码正则
      */
     public static final String PASSWORD = "^(?!([^(0-9a-zA-Z)])+$).{" + Constant.MIN_PASSWORD + "," + Constant.MAX_PASSWORD + "}$";
+
+    /**
+     * 时间日期正则 YYYY-MM-DD HH:mm:ss 格式 或 YYYY-MM-DD 格式
+     */
+    public static final String DATE_TIME = "^[1-2][0-9][0-9][0-9]-[0-1]{0,1}[0-9]-[0-3]{0,1}[0-9]$";
 }
