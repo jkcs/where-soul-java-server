@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.zhiyuqx.cn</groupId>
     <artifactId>where-soul-java-server</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0${version.suffix}</version>
     <name>where-soul-java-server</name>
     <description>where-soul-java-server</description>
 
@@ -116,4 +116,30 @@
         </plugins>
     </build>
 
+    <profiles>
+        <!-- 测试服务器 -->
+        <profile>
+            <id>test</id>
+            <properties>
+                <env>test</env>
+                <profile.dir>/home/server</profile.dir>
+                <version.suffix>-RELEASES</version.suffix>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+        </profile>
+        <!-- 生产服务器 -->
+        <profile>
+            <id>pro</id>
+            <properties>
+                <env>pro</env>
+                <profile.dir>/home/server</profile.dir>
+                <version.suffix>-PRODUCTION</version.suffix>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
 </project>
