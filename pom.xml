@@ -10,12 +10,13 @@
     </parent>
     <groupId>com.zhiyuqx.cn</groupId>
     <artifactId>where-soul-java-server</artifactId>
-    <version>1.0.0${version.suffix}</version>
+    <version>${server.version}${version.suffix}</version>
     <name>where-soul-java-server</name>
     <description>where-soul-java-server</description>
 
     <properties>
         <java.version>1.8</java.version>
+        <server.version>1.0.0</server.version>
     </properties>
 
     <dependencies>
@@ -98,13 +99,6 @@
             <version>15.0</version>
             <scope>compile</scope>
         </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>6.0.10.Final</version>
-        </dependency>
-
     </dependencies>
 
     <build>
@@ -113,10 +107,22 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
         </plugins>
     </build>
 
     <profiles>
+        <!-- 开发服务器 -->
+        <profile>
+            <id>dev</id>
+            <properties>
+                <env>dev</env>
+                <version.suffix>-SNAPSHOTS</version.suffix>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
         <!-- 测试服务器 -->
         <profile>
             <id>test</id>
@@ -135,7 +141,7 @@
             <properties>
                 <env>pro</env>
                 <profile.dir>/home/server</profile.dir>
-                <version.suffix>-PRODUCTION</version.suffix>
+                <version.suffix/>
             </properties>
             <activation>
                 <activeByDefault>false</activeByDefault>

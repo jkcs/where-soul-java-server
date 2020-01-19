@@ -40,7 +40,7 @@ import java.time.LocalDateTime;
  * @since 2019-11-28
  */
 @RestController
-@RequestMapping("/users")
+@RequestMapping("users")
 @Slf4j
 public class UsersController extends BaseController {
     private final IUsersService usersService;
