@@ -7,7 +7,7 @@ import sys
 import time
 
 """     配置虚拟机参数   """
-jvm_args = '-Dfile.encoding=UTF-8 -XX:MaxDirectMemorySize=128m -Xmx1024m -Xms1024m'
+jvm_args = '-Dfile.encoding=UTF-8 -XX:MaxDirectMemorySize=128m -Xmx512m -Xms512m'
 
 key = os.path.basename(sys.path[0] + '.jar')
 log_path = os.path.basename(sys.path[0])
