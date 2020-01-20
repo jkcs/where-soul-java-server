@@ -35,6 +35,7 @@
             <fileMode>0755</fileMode>
             <excludes>
                 <exclude>/static/**/</exclude>
+                <exclude>/mapper/**/</exclude>
             </excludes>
         </fileSet>
 
