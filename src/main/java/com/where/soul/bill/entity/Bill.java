@@ -1,5 +1,6 @@
 package com.where.soul.bill.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.where.soul.common.base.BaseEntity;
 import java.math.BigDecimal;
 
@@ -25,6 +26,7 @@ public class Bill extends BaseEntity {
     /**
      * 用户id
      */
+    @JsonIgnore
     private Integer userId;
 
     /**

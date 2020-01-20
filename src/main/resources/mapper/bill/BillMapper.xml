@@ -2,4 +2,46 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.where.soul.bill.mapper.BillMapper">
 
+    <select id="selectBills" resultMap="BillResultMap">
+        SELECT
+            b.id, bt.tag_id tagId, b.type_id typeId, b.status, b.money, b.create_time, b.update_time
+        FROM
+            bill b
+        LEFT JOIN (
+            SELECT
+                bill_id, bill_tag_id AS tag_id
+            FROM
+                bill b
+            LEFT JOIN bill_tag_merge bt ON b.id = bt.bill_id
+        <if test="tagId != null and tagId != ''">
+            WHERE
+                bt.bill_tag_id = #{tagId}
+        </if>
+        ) as bt ON b.id = bt.bill_id
+        WHERE
+            b.user_id = #{userId}
+        <if test="typeId != null and typeId != ''">
+            AND b.type_id = #{typeId}
+        </if>
+        <if test="lastId != null and lastId != ''">
+            AND b.id > #{lastId}
+        </if>
+        <if test="startTime != null and startTime != ''">
+            AND b.create_time &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            AND b.create_time &lt;= #{endTime}
+        </if>
+        LIMIT #{pageSize}
+    </select>
+
+    <resultMap id="BillResultMap" type="com.where.soul.bill.entity.Bill">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="tagId" property="tagId" jdbcType="INTEGER"/>
+        <result column="typeId" property="typeId" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="BIT"/>
+        <result column="money" property="money" jdbcType="DECIMAL"/>
+        <result column="create_time" property="createTime" jdbcType="DATE"/>
+        <result column="update_time" property="updateTime" jdbcType="DATE"/>
+    </resultMap>
 </mapper>

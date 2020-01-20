@@ -33,10 +33,10 @@
             )
     </select>
 
-    <resultMap id="userRM" type="Users">
+    <resultMap id="userRM" type="com.where.soul.users.entity.Users">
         <id property="id" column="id" />
-        <result property="avatar_id" column="avatar_id" jdbcType="INTEGER"/>
-        <result property="users_security_id" column="avatar_id" jdbcType="INTEGER"/>
+        <result property="avatarId" column="avatar_id" jdbcType="INTEGER"/>
+        <result property="usersSecurityId" column="avatar_id" jdbcType="INTEGER"/>
         <result property="username" column="username" jdbcType="VARCHAR"/>
         <result property="gender" column="gender" jdbcType="BIT"/>
     </resultMap>

@@ -2,6 +2,7 @@ package com.where.soul.server.controller;
 
 import com.where.soul.common.Constant;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -61,5 +64,12 @@ class TagController {
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
         ).andReturn();
         System.out.println(mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8));
+    }
+
+    @Test
+    void testArrayList() throws Exception {
+        List<String> list = new ArrayList<>();
+        list.add(null);
+        System.out.println(list);
     }
 }

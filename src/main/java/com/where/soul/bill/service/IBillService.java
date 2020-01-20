@@ -1,5 +1,6 @@
 package com.where.soul.bill.service;
 
+import com.where.soul.bill.dto.BillDTO;
 import com.where.soul.bill.entity.Bill;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -26,5 +27,5 @@ public interface IBillService extends IService<Bill> {
      * @param lastId 上一列表的结束 id
      * @return 账单列表
      */
-    List<Bill> selectBills(Integer userId, Integer tagId, Integer typeId, String startTime, String endTime, Integer page, Integer lastId);
+    List<BillDTO> selectBills(Integer userId, Integer tagId, Integer typeId, String startTime, String endTime, Integer page, Integer lastId);
 }
