@@ -44,4 +44,10 @@ public class BillController extends BaseController {
 
         return Result.success(billDTOList);
     }
+
+    @GetMapping("/test")
+    public Result restTest(HttpServletRequest request, BillVO billVO) {
+        log.error("测试失败是否会发送邮件");
+        return Result.success(null);
+    }
 }
