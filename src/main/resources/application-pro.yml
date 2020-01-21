@@ -14,5 +14,4 @@ logging:
   level:
     com:
       where:
-        soul:
-          com: info
+        soul: WARN

@@ -165,10 +165,9 @@
 	</appender>-->
 
 	<logger name="org.springframework" level="WARN" />
-	<logger name="com.where.soul" level="DEBUG" />
 	<logger name="java.sql.Connection" level="INFO" />
 	<logger name="java.sql.ResultSet" level="INFO" />
-	<logger name="org.mybatis.spring.SqlSessionUtils" level="WARN" />
+	<logger name="org.mybatis.spring.SqlSessionUtils" level="INFO" />
 
 	<!--开发环境为DEBUG等级 -->
 	<root level="INFO">

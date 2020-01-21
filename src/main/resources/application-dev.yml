@@ -12,5 +12,4 @@ logging:
   level:
     com:
       where:
-        soul:
-          com: debug
+        soul: DEBUG

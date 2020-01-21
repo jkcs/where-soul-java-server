@@ -12,4 +12,9 @@ mybatis-plus:
   mapper-locations: classpath*:mapper/*/*Mapper.xml
   type-aliases-package: com.where.soul.*.entity
   configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    log-impl: com.where.soul.common.logging.SqlLogImpl
+    log-prefix: mybatis.sql.
+    lazy-loading-enabled: true
+    aggressive-lazy-loading: false
+    map-underscore-to-camel-case: true

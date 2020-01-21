@@ -162,35 +162,11 @@
         </filter>
     </appender>-->
 
-    <logger name="org.springframework" level="INFO"/>
-    <logger name="com.where.soul" level="DEBUG"/>
-    <logger name="java.sql.Connection" level="INFO"/>
-    <logger name="java.sql.ResultSet" level="INFO"/>
-    <logger name="org.mybatis.spring.SqlSessionUtils" level="WARN"/>
+    <logger name="org.springframework" level="WARN" />
+    <logger name="java.sql.Connection" level="INFO" />
+    <logger name="java.sql.ResultSet" level="INFO" />
+    <logger name="org.mybatis.spring.SqlSessionUtils" level="INFO" />
 
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <!-- encoder 默认配置为PatternLayoutEncoder -->
-        <encoder>
-            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}][%thread][%level][%class{0}:%line][%X{Trace-Id}]: %msg%n%rEx{full,
-                java.lang.reflect.Method,
-                sun.reflect,
-                org.apache.catalina,
-                org.springframework.aop,
-                org.springframework.security,
-                org.springframework.transaction,
-                org.springframework.web,
-                org.springframework.beans,
-                org.springframework.cglib,
-                net.sf.cglib,
-                org.apache.tomcat.util,
-                org.apache.coyote,
-                ByCGLIB,
-                BySpringCGLIB,
-                com.google.common.cache.LocalCache$
-                }
-            </pattern>
-        </encoder>
-    </appender>
     <!--开发环境为DEBUG等级 -->
     <root level="DEBUG">
         <appender-ref ref="INFO_ROLLING"/>
@@ -199,6 +175,5 @@
         <appender-ref ref="TRACE_ROLLING"/>
         <appender-ref ref="WARN_ROLLING"/>
         <!--		<appender-ref ref="EMAIL" />-->
-        <appender-ref ref="STDOUT"/>
     </root>
 </configuration>
