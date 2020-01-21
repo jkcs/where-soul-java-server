@@ -3,6 +3,7 @@ package com.where.soul.bill.service;
 import com.where.soul.bill.dto.BillDTO;
 import com.where.soul.bill.entity.Bill;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.where.soul.bill.entity.Tag;
 
 import java.util.List;
 
@@ -28,4 +29,20 @@ public interface IBillService extends IService<Bill> {
      * @return 账单列表
      */
     List<BillDTO> selectBills(Integer userId, Integer tagId, Integer typeId, String startTime, String endTime, Integer page, Integer lastId);
+
+    /**
+     * 增加记账
+     * @param bill 账单对象
+     * @param tags 关联标签
+     * @return < 0 失败 其余成功
+     */
+    Integer addBill(Bill bill, List<Tag>  tags);
+
+    /**
+     * 更新记账
+     * @param bill 账单对象
+     * @param tags 关联标签
+     * @return < 0 失败 其余成功
+     */
+    Integer updateBill(Bill bill, List<Tag>  tags);
 }
