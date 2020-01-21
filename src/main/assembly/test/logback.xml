@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-	<!--日志配置dev -->
+	<!--日志配置test -->
 	<property name="LOG_BASE" value="/home/server/logs" />
 	<property name="PROJECT_NAME" value="where-soul-java-server" />
 	<property name="LOG_BACK_DIR" value="${LOG_BASE}/${PROJECT_NAME}" />
 
 	<!-- 定义发送邮件参数 -->
-	<property name="smtpHost" value="smtp.office365.com"/>
-	<property name="smtpPort" value="587"/>
-	<property name="username" value="lwbrave@outlook.com"/>
-	<property name="password" value="f48e7f861168a12"/>
-	<property name="SSL" value="true"/>
-	<property name="email_to"
-			  value="1778768609@qq.com"/>
-	<property name="email_from" value="admin"/>
-	<property name="email_subject" value="【账单后台服务】: %logger"/>
+	<!--	<property name="smtpHost" value="smtp.office365.com"/>
+        <property name="smtpPort" value="587"/>
+        <property name="username" value="xxx@outlook.com"/>
+        <property name="password" value="123"/>
+        <property name="SSL" value="true"/>
+        <property name="email_to"
+                  value=""/>
+        <property name="email_from" value="BillService"/>
+        <property name="email_subject" value="【账单后台服务】: %logger"/>-->
 
 	<!-- logback 工程的日志配置 -->
 	<appender name="ERROR_ROLLING"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
+			  class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>${LOG_BACK_DIR}/error.log</file>
 		<rollingPolicy
-			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
 			<fileNamePattern>${LOG_BACK_DIR}/error_%d{yyyyMMdd}.%i.log
 			</fileNamePattern>
 			<maxFileSize>100MB</maxFileSize>
@@ -41,10 +41,10 @@
 		</filter>
 	</appender>
 	<appender name="WARN_ROLLING"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
+			  class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>${LOG_BACK_DIR}/warn.log</file>
 		<rollingPolicy
-			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
 			<fileNamePattern>${LOG_BACK_DIR}/warn_%d{yyyyMMdd}.%i.log
 			</fileNamePattern>
 			<maxFileSize>100MB</maxFileSize>
@@ -66,10 +66,10 @@
 
 
 	<appender name="INFO_ROLLING"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
+			  class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>${LOG_BACK_DIR}/info.log</file>
 		<rollingPolicy
-			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
 			<fileNamePattern>${LOG_BACK_DIR}/info_%d{yyyyMMdd}.%i.log
 			</fileNamePattern>
 			<maxFileSize>100MB</maxFileSize>
@@ -90,10 +90,10 @@
 	</appender>
 
 	<appender name="DEBUG_ROLLING"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
+			  class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>${LOG_BACK_DIR}/debug.log</file>
 		<rollingPolicy
-			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
 			<fileNamePattern>${LOG_BACK_DIR}/debug_%d{yyyyMMdd}.%i.log
 			</fileNamePattern>
 			<maxFileSize>100MB</maxFileSize>
@@ -113,10 +113,10 @@
 		</filter>
 	</appender>
 	<appender name="TRACE_ROLLING"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
+			  class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>${LOG_BACK_DIR}/trace.log</file>
 		<rollingPolicy
-			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
 			<fileNamePattern>${LOG_BACK_DIR}/trace_%d{yyyyMMdd}.%i.log
 			</fileNamePattern>
 			<maxFileSize>100MB</maxFileSize>
@@ -137,7 +137,7 @@
 	</appender>
 
 	<!-- 发送异常邮件-->
-	<appender name="EMAIL" class="ch.qos.logback.classic.net.SMTPAppender">
+	<!--<appender name="EMAIL" class="ch.qos.logback.classic.net.SMTPAppender">
 		<smtpHost>${smtpHost}</smtpHost>
 		<smtpPort>${smtpPort}</smtpPort>
 		<username>${username}</username>
@@ -162,7 +162,7 @@
 			<onMatch>ACCEPT</onMatch>
 			<onMismatch>DENY</onMismatch>
 		</filter>
-	</appender>
+	</appender>-->
 
 	<logger name="org.springframework" level="WARN" />
 	<logger name="com.where.soul" level="DEBUG" />
@@ -177,6 +177,6 @@
 		<appender-ref ref="ERROR_ROLLING" />
 		<appender-ref ref="TRACE_ROLLING" />
 		<appender-ref ref="WARN_ROLLING" />
-		<appender-ref ref="EMAIL" />
+		<!--		<appender-ref ref="EMAIL" />-->
 	</root>
 </configuration>
