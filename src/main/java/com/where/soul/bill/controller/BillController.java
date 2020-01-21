@@ -33,9 +33,8 @@ public class BillController extends BaseController {
         this.billService = billService;
     }
 
-    @GetMapping
+    @GetMapping("/list")
     public Result restBill(HttpServletRequest request, BillVO billVO) {
-        log.info(billVO.toString());
         Integer userId = getUserId(request);
         if (billVO.getPageSize() == null || billVO.getPageSize() == 0) {
             billVO.setPageSize(10);
@@ -43,11 +42,5 @@ public class BillController extends BaseController {
         List<BillDTO> billDTOList = billService.selectBills(userId, billVO.getTagId(), billVO.getTypeId(), billVO.getStartTime(), billVO.getEndTime(), billVO.getPageSize(), billVO.getLastId());
 
         return Result.success(billDTOList);
-    }
-
-    @GetMapping("/test")
-    public Result restTest(HttpServletRequest request, BillVO billVO) {
-        log.error("测试失败是否会发送邮件");
-        return Result.success(null);
     }
 }
