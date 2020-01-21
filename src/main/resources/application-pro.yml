@@ -14,4 +14,6 @@ logging:
   level:
     com:
       where:
-        soul: WARN
+#        soul: WARN
+#        先 debug pro服务器暂时不做生产服务器
+        soul: DEBUG
