@@ -33,6 +33,7 @@
             AND b.create_time &lt;= #{endTime}
         </if>
         LIMIT #{pageSize}
+        order by b.create_time desc
     </select>
 
     <resultMap id="BillResultMap" type="com.where.soul.bill.entity.Bill">

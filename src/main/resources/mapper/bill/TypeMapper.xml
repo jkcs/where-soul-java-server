@@ -25,5 +25,6 @@
             AND
             bt.parent_id = #{parentId}
         </if>
+         order by bt.create_time desc
     </select>
 </mapper>
