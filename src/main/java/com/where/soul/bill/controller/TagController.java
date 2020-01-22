@@ -60,7 +60,7 @@ public class TagController extends BaseController {
         return Result.success();
     }
 
-    @GetMapping
+    @GetMapping("/list")
     public Result restList(HttpServletRequest request) {
         Integer id = getUserId(request);
         List<Tag> tags = tagService.selectListByUserId(id);

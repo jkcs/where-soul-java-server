@@ -1,7 +1,10 @@
 package com.where.soul.bill.mapper;
 
+import com.where.soul.bill.dto.TypeDTO;
 import com.where.soul.bill.entity.Type;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface TypeMapper extends BaseMapper<Type> {
 
+    List<TypeDTO> selectTypeList(Integer userId, Integer parentId);
 }

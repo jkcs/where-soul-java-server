@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.where.soul.bill.mapper.TypeMapper">
+    <resultMap id="TypeResultMap" type="com.where.soul.bill.dto.TypeDTO">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="balance" property="balance" jdbcType="DECIMAL"/>
+        <result column="repayment_date" property="repaymentDate" jdbcType="DATE"/>
+        <result column="reminder_date" property="reminderDate" jdbcType="DATE"/>
+    </resultMap>
 
+    <select id="selectTypeList" resultMap="TypeResultMap">
+        SELECT
+         bt.id,
+         bt. NAME,
+         bti.balance,
+         bti.reminder_date,
+         bti.repayment_date
+        FROM
+            bill_type bt
+        LEFT JOIN bill_type_info bti ON bt.id = bti.type_id
+        WHERE
+            bt.user_id = #{userId}
+        <if test="parentId != null">
+            AND
+            bt.parent_id = #{parentId}
+        </if>
+    </select>
 </mapper>

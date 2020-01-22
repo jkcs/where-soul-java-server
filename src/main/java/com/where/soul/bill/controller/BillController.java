@@ -53,6 +53,7 @@ public class BillController extends BaseController {
 
     @PostMapping("/add")
     public Result restAdd(HttpServletRequest request, BillAddVO billAddVO) {
+        // TODO 记账类型type关联金额扣除
         Integer userId = getUserId(request);
         if (billAddVO.getStatus() == null) {
             billAddVO.setStatus(true);
